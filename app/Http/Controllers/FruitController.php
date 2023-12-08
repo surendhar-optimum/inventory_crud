@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Fruit;
+use App\Models\Fruit;
+use Illuminate\Support\Facades\Response;
 
 class FruitController extends Controller
 {
@@ -14,7 +15,9 @@ class FruitController extends Controller
      */
     public function index()
     {
-        //
+        $fruits=Fruit::get();
+        return response()->json($fruits);
+
     }
 
     /**
@@ -22,18 +25,11 @@ class FruitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $fruits=new Fruit();
-        $fruits->name=$request->input('name');
-        $fruits->description=$request->input('description');
-        $fruits->price=$request->input('price');
-        $fruits->quantity=$request->input('quantity');
+    // public function create()
+    // {
 
-        $fruits->save();
-        return response()->json($fruits);
 
-    }
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -43,7 +39,16 @@ class FruitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $fruit = new Fruit;
+       $fruit->name=$request->name;
+       $fruit->description=$request->description;
+       $fruit->price=$request->price;
+       $fruit->quantity=$request->quantity;
+       $fruit->save();
+       return Response::json([
+        'data'=>$fruit,
+        'success'=>true
+       ],201);
     }
 
     /**
@@ -52,9 +57,23 @@ class FruitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(string $id)
     {
-        //
+        $fruit = Fruit::find($id);
+        if($fruit){
+            return Response::json([
+                'data'=>$fruit,
+                'success'=>true
+            ],200);
+        }
+        else {
+            return Response::json([
+                'data'=>$fruit,
+                'success'=>false,
+                'message'=>'Fruit not found'
+            ],401);
+
+        }
     }
 
     /**
@@ -77,17 +96,50 @@ class FruitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $fruit=Fruit::find($id);
+        if($fruit){
+            $fruit->name=$request->name;
+            $fruit->description=$request->description;
+            $fruit->price=$request->price;
+            $fruit->quantity=$request->quantity;
+            $fruit->save();
+            return Response::json([
+                'data'=>$fruit,
+                'success'=>true
+            ]);
+        }
+        else
+        {
+            return Response::json([
+            'data'=>$fruit,
+            'success'=>false,
+            'message'=>'Fruit not found'
+        ],404);
 
+    }
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(string $id)
     {
-        //
+        $fruit=Fruit::find($id);
+        if($fruit){
+            $fruit->delete();
+            return Response::json([
+
+                'success'=>true,
+                'message'=>'Fruit Deleted successfully'
+            ]);
+    } else
+    {
+        return Response::json([
+        'success'=>false,
+        'message'=>'Fruit not deleted'
+    ],400);
+}
     }
 }
