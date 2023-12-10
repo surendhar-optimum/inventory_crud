@@ -42,24 +42,24 @@ class CategoryController extends Controller
         $validatedData=$request->validate([
             'name'=>'required|string|unique:categories,name',
             'description'=>'required|string',
-            'price'=>'required|integer',
-            'quantity'=>'required|integer',
+            // 'price'=>'required|integer',
+            // 'quantity'=>'required|integer',
         ]);
 
         $category=Category::create([
             'name'=>$validatedData['name'],
             'description'=>$validatedData['description'],
-            'price'=>$validatedData['price'],
-            'quantity'=>$validatedData['quantity'],
+            // 'price'=>$validatedData['price'],
+            // 'quantity'=>$validatedData['quantity'],
         ]);
 
-        $item=Item::create([
-            'category_id'=>$category->id,
-            'name'=>$validatedData['name'],
-            'description'=>$validatedData['description'],]);
+        // $item=Item::create([
+        //     'category_id'=>$category->id,
+        //     'name'=>$validatedData['name'],
+        //     'description'=>$validatedData['description'],]);
 
         return response()->json(['message'=>'Category
-        Addded Successfully','category'=>$category,'item'=>$item],200);
+        Addded Successfully','category'=>$category],200);
     }
 
     /**
