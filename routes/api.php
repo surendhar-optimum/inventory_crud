@@ -1,10 +1,8 @@
-
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FruitController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +15,8 @@ use App\Http\Controllers\FruitController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::resource('fruit', FruitController::class);
+Route::resource('category',CategoryController::class);
