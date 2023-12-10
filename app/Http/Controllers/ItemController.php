@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Item;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -45,9 +46,14 @@ class ItemController extends Controller
 
         ]);
 
-
+        $category=Category::create([
+            'name'=>$validatedData['name'],
+            'description'=>$validatedData['description'],
+            // 'price'=>$validatedData['price'],
+            // 'quantity'=>$validatedData['quantity'],
+        ]);
         return response()->json(['message'=>'Item
-        Addded Successfully','Item'=>$item],200);
+        Addded Successfully','Item'=>$item,'Category'=>$category],200);
     }
 
     /**
