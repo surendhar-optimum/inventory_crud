@@ -16,7 +16,7 @@ class ItemController extends Controller
     public function index()
     {
         $item = Item::all();
-        return response(['data'=>$item],200);
+        return response(['data' => $item], 200);
     }
 
     /**
@@ -28,36 +28,35 @@ class ItemController extends Controller
     public function store(Request $request)
     {
 
-        $validatedData=$request->validate([
-            'name'=>'required|string|unique:items,name',
-            'description'=>'required|string',
-            'price'=>'required|integer',
-            'quantity'=>'required|integer',
+        $validatedData = $request->validate([
+            'name' => 'required|string|unique:items,name',
+            'description' => 'required|string',
+            'price' => 'required|integer',
+            'quantity' => 'required|integer',
 
         ]);
 
-        $item=Item::create([
-            'name'=>$validatedData['name'],
-            'description'=>$validatedData['description'],
-            'price'=>$validatedData['price'],
-            'quantity'=>$validatedData['quantity'],
+        $item = Item::create([
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'price' => $validatedData['price'],
+            'quantity' => $validatedData['quantity'],
 
         ]);
-        $itemcaty=[];
+        $itemcaty = [];
         $categories = $request->category_id;
-        foreach($categories as $category){
-            $itemcaty[]=[
-                'item_id'=>$item->id,
-                'category_id'=>$category,
+        foreach ($categories as $category) {
+            $itemcaty[] = [
+                'item_id' => $item->id,
+                'category_id' => $category,
             ];
         }
-        if(count($itemcaty)){
+        if (count($itemcaty)) {
             ItemCategory::insert($itemcaty);
         }
 
-
-        return response()->json(['message'=>'Item
-        Addded Successfully','Item'=>$item],200);
+        return response()->json(['message' => 'Item
+        Addded Successfully', 'Item' => $item], 201);
     }
 
     /**
@@ -68,12 +67,12 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        return response(['data'=>$item],200);
+        return response(['data' => $item], 200);
     }
 
     public function edit(Item $item)
     {
-        return response(['data'=>$item],200);
+        return response(['data' => $item], 200);
     }
     /**
      * Update the specified resource in storage.
@@ -84,36 +83,31 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item=Item::findOrFail($id);
+        // print_r($request->all(), $id);
+        $item = Item::findOrFail($id);
 
-        $validatedData=$request->validate([
-            'name'=>'required|string',
-            'description'=>'required|string',
-            'price'=>'required|integer',
-            'quantity'=>'required|integer',
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|integer',
+            'quantity' => 'required|integer',
 
         ]);
         $item->update($validatedData);
-        $itemcaty=[];
+        $itemcaty = [];
         $categories = $request->category_id;
-        foreach($categories as $category){
-            $itemcaty[]=[
-                'item_id'=>$item->id,
-                'category_id'=>$category,
+        foreach ($categories as $category) {
+            $itemcaty[] = [
+                'item_id' => $item->id,
+                'category_id' => $category,
             ];
         }
-        if(count($itemcaty)){
-            ItemCategory::where('item_id',$item->id)->delete();
+        if (count($itemcaty)) {
+            ItemCategory::where('item_id', $item->id)->delete();
             ItemCategory::insert($itemcaty);
         }
-        return response()->json(['message'=>'Item Updated Successfully','data'=>$item],200);
-
-
-
-
-
+        return response()->json(['message' => 'Item Updated Successfully', 'data' => $item], 200);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -123,6 +117,6 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         $item->delete();
-        return response(['message'=>'Item Deleted Successfully'],200);
+        return response(['message' => 'Item Deleted Successfully'], 200);
     }
 }
