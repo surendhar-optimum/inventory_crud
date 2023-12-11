@@ -5,6 +5,9 @@ use App\Models\Item;
 use App\Models\Category;
 use App\Models\ItemCategory;
 use Illuminate\Http\Request;
+use App\Mail\ItemMailCreated;
+use Illuminate\Support\Facades\Mail;
+
 
 class ItemController extends Controller
 {
@@ -53,6 +56,14 @@ class ItemController extends Controller
         }
         if (count($itemcaty)) {
             ItemCategory::insert($itemcaty);
+        }
+
+        $toEmail =env('INVENTORY_ADMIN_EMAIL');
+        try{
+            Mail::to($toEmail)->send(new ItemMailCreated($item));
+            $message ='Item created and Email sent successfully';
+        }catch (\Exception $e) {
+            $message = 'Item created But mail not sent, error: '.$e->getMessage();
         }
 
         return response()->json(['message' => 'Item
