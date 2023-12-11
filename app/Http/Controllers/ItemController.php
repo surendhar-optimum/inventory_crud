@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Category;
+use App\Models\ItemCategory;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -26,15 +27,13 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        // $data=$request->only(['name','description','price','quantity']);
-        // Item::create($data);
-        // return response(['message'=>'Item Created successfully'],200);
+
         $validatedData=$request->validate([
             'name'=>'required|string|unique:items,name',
             'description'=>'required|string',
             'price'=>'required|integer',
             'quantity'=>'required|integer',
-            'category_id'=>'required|integer',
+
         ]);
 
         $item=Item::create([
@@ -42,18 +41,23 @@ class ItemController extends Controller
             'description'=>$validatedData['description'],
             'price'=>$validatedData['price'],
             'quantity'=>$validatedData['quantity'],
-            'category_id'=>$validatedData['category_id'],
 
         ]);
+        $itemcaty=[];
+        $categories = $request->category_id;
+        foreach($categories as $category){
+            $itemcaty[]=[
+                'item_id'=>$item->id,
+                'category_id'=>$category,
+            ];
+        }
+        if(count($itemcaty)){
+            ItemCategory::insert($itemcaty);
+        }
 
-        $category=Category::create([
-            'name'=>$validatedData['name'],
-            'description'=>$validatedData['description'],
-            // 'price'=>$validatedData['price'],
-            // 'quantity'=>$validatedData['quantity'],
-        ]);
+
         return response()->json(['message'=>'Item
-        Addded Successfully','Item'=>$item,'Category'=>$category],200);
+        Addded Successfully','Item'=>$item],200);
     }
 
     /**
@@ -83,13 +87,25 @@ class ItemController extends Controller
         $item=Item::findOrFail($id);
 
         $validatedData=$request->validate([
-            'name'=>'required|string|unique:items,name',
+            'name'=>'required|string',
             'description'=>'required|string',
             'price'=>'required|integer',
             'quantity'=>'required|integer',
-            'category_id'=>'required|integer',
+
         ]);
         $item->update($validatedData);
+        $itemcaty=[];
+        $categories = $request->category_id;
+        foreach($categories as $category){
+            $itemcaty[]=[
+                'item_id'=>$item->id,
+                'category_id'=>$category,
+            ];
+        }
+        if(count($itemcaty)){
+            ItemCategory::where('item_id',$item->id)->delete();
+            ItemCategory::insert($itemcaty);
+        }
         return response()->json(['message'=>'Item Updated Successfully','data'=>$item],200);
 
 

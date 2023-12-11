@@ -15,18 +15,19 @@ class ItemModelTest extends TestCase
      *
      * @return void
      */
-    // public function test_example()
-    // {
-    //     $response = $this->get('/');
+    public function test_example()
+    {
+        $response = $this->get('/');
 
-    //     $response->assertStatus(200);
-    // }
+        $response->assertStatus(200);
+    }
     public function testCreatePost(){
         $item=[
             'name'=>'Fruit',
             'description'=>'apple',
             'price'=>'50',
-            'quantity'=>'20'
+            'quantity'=>'20',
+            'category_id'=>'8',
 
         ];
         $response=$this->post('/item',$item);

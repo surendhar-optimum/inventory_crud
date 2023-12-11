@@ -10,9 +10,9 @@ class Item extends Model
     use HasFactory;
     protected $fillable=['category_id','name','description','price','quantity'];
 
-    public function item()
+    public function category()
     {
-        return $this->hasOne(Item::class);
+        return $this->hasMany(ItemCategory::class,'item_id','id');
     }
 
 

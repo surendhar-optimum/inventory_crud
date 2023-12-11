@@ -36,27 +36,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        // $data=$request->only(['name','description','price','quantity']);
-        // Category::create($data);
-        // return response(['message'=>'Category Created successfully'],200);
+
         $validatedData=$request->validate([
             'name'=>'required|string|unique:categories,name',
             'description'=>'required|string',
-            // 'price'=>'required|integer',
-            // 'quantity'=>'required|integer',
+
         ]);
 
         $category=Category::create([
             'name'=>$validatedData['name'],
             'description'=>$validatedData['description'],
-            // 'price'=>$validatedData['price'],
-            // 'quantity'=>$validatedData['quantity'],
-        ]);
 
-        // $item=Item::create([
-        //     'category_id'=>$category->id,
-        //     'name'=>$validatedData['name'],
-        //     'description'=>$validatedData['description'],]);
+        ]);
 
         return response()->json(['message'=>'Category
         Addded Successfully','category'=>$category],200);
@@ -93,7 +84,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $data=$request->only(['name','description','price','quantity']);
+        $data=$request->only(['name','description']);
         $category->update($data);
         return response(['message'=>'Category Updated Successfully'],200);
     }
