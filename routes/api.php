@@ -19,9 +19,13 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+Route::group(['middleware' => ['apiAuthenticate']], function () {
+
 
 Route::resource('category',CategoryController::class);
 Route::resource('item',ItemController::class);
 // Route::resource('item',ItemController::class);
 Route::put('/item/{id}',[ItemController::class,'update']);
+});
+
 
