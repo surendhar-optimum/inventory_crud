@@ -9,7 +9,7 @@ PHP >=8.0
 Laravel 10
 
 # FEATURES
-Item Management
-Category Management
-Email Notifications
+Item Management,
+Category Management,
+Email Notifications,
 Unit Testing
