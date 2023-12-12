@@ -67,9 +67,6 @@ Response for Category Json
 
 # POST:http://127.0.0.1:8000/api/category/
 
-:name , category
-:string
-Descprition:
 | Parameter | type    | Desc    |
 | :-----: | :---: | :---: |
 | name | string  | category for yours  |
