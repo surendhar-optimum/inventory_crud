@@ -50,7 +50,7 @@ Create Restful API for an inventory management system using Laravel and Mysql.
 
 # Postman Json Status Code 
 
-| Status | type    |
+| Status | type |
 | :-----: | :---: |
 | 201  | record created   |
 | 200 | fetch the record  |
