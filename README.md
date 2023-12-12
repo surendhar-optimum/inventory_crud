@@ -41,15 +41,13 @@ Create Restful API for an inventory management system using Laravel and Mysql.
     | :---:   | :---: | :---: |
     | token | auth token  | auth key   |
 
-
     | Header | 
-    
     | :---:   | :---: |
     | Key | value  |
     | accept | application/json  
 
-# Category
 
+# Category
 Response for Category Json 
 {
     "name":"Category Test ",
@@ -67,7 +65,9 @@ Descprition:
 | :-----: | :---: | :---: |
 | name | string  | category for yours  |
 | description | string  | description for yours  |
-Response for your Post Category
+
+
+# Response for your Post Category
 {
     "message": "Category\n        Addded Successfully",
     "category": {
