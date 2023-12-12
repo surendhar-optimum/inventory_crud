@@ -5,15 +5,12 @@ Laravel Inventory Management System Api Crud Technical Challenge
 Create Restful API for an inventory management system using Laravel and Mysql.
 
 # REQUIRED SOFTWARES
-PHP >=8.0,
-
-Laravel 10
+    *  PHP >=8.0,
+    * Laravel 10,
+    * Mysql DB
 
 # FEATURES
-Item Management,
-
-Category Management,
-
-Email Notifications,
-
-Unit Testing
+    *Item Management,
+    *Category Management,
+    *Email Notifications,
+    *Unit Testing
