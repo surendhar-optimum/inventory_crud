@@ -36,4 +36,7 @@ Create Restful API for an inventory management system using Laravel and Mysql.
     . Use composer to create Mail 
     . create Unit testing 
        .. php artisan make:test UserTest
-    
+# API Authorization
+    | Attempt | #1    | #2    |
+| :---:   | :---: | :---: |
+| Seconds | 301   | 283   |
