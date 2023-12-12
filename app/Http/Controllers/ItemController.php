@@ -138,9 +138,11 @@ class ItemController extends Controller
             $item->is_created=false;
             Mail::to($toEmail)->cc($ccUsers)->send(new ItemMailCreated($item));
             $message ='Item updated and Email sent successfully';
+            unset($item->is_created);
         }catch (\Exception $e) {
             $message = 'Item updated But mail not sent, error: '.$e->getMessage();
         }
+        unset($item->is_created);
         return response()->json(['message' => 'Item Updated Successfully', 'data' => $item], 200);
     }
     /**

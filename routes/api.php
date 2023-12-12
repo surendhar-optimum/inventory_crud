@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,11 +22,11 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::group(['middleware' => ['apiAuthenticate']], function () {
 
-
+Route::delete('/category/{id}',[CategoryController::class,'destory']);
 Route::resource('category',CategoryController::class);
 Route::resource('item',ItemController::class);
-// Route::resource('item',ItemController::class);
 Route::put('/item/{id}',[ItemController::class,'update']);
+
 });
 
 

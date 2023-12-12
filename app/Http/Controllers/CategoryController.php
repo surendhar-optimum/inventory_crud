@@ -96,7 +96,7 @@ class CategoryController extends Controller
 
     //     return response(['message'=>'Category Updated Successfully'],200);
     // }
-    public function update($request, string $id)
+    public function update(Request $request, string $id)
     {
         $category = Category::find($id);
         if($category){
@@ -123,7 +123,9 @@ class CategoryController extends Controller
 
     public function destory(string $id){
         $category=Category::find($id);
+        //dd($category);
         if($category){
+
             $category->delete();
             return response(['message'=>'Category Deleted Successfully','success'=>true]);
         }
