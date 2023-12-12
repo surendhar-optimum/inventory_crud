@@ -56,7 +56,7 @@ Response for Category Json
     "updated_at": "2023-12-12T08:40:06.000000Z"
 }
 
-# POST:http://127.0.0.1:8000/api/item/
+# POST:http://127.0.0.1:8000/api/category/
 
 :name , category
 :string
@@ -78,4 +78,39 @@ Descprition:
         "id": 3
     }
 }
- 
+
+# Get:http://127.0.0.1:8000/api/category/
+
+It throws all the inserted value from db;
+
+# Get:http://127.0.0.1:8000/api/category/1
+
+It throws record based upon given id;
+
+.Pass value category_id
+# PUT:http://127.0.0.1:8000/api/item/6
+
+.Pass value category_id
+
+ | Parameter | type    | Desc    |
+| :-----: | :---: | :---: |
+| name | string  | category for yours  |
+| description | string  | description for yours  |
+
+{
+    "message": "Category Updated Successfully",
+    "data": {
+        "id": 6,
+        "name": "orangnic",
+        "description": "Black",
+        "created_at": "2023-12-11T11:25:41.000000Z",
+        "updated_at": "2023-12-12T06:44:35.000000Z",
+       
+    }
+}
+
+# DELETE:http://127.0.0.1:8000/api/category/6
+{
+    "message": "Category Deleted Successfully",
+    "success": true
+}
