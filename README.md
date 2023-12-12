@@ -48,6 +48,13 @@ Create Restful API for an inventory management system using Laravel and Mysql.
     | Key | value  |
     | accept | application/json  
 
+# Postman Json Status Code 
+
+| Status | type    | Desc |
+| :-----: | :---: | :---: |
+| 201  | record created   |
+| 200 | fetch the record  |
+| 404  | Page not found   |
 
 # Category
 Response for Category Json 
