@@ -82,6 +82,52 @@ Descprition:
 # Get:http://127.0.0.1:8000/api/category/
 
 It throws all the inserted value from db;
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Apple s",
+            "description": "Green",
+            "created_at": "2023-12-11T11:17:52.000000Z",
+            "updated_at": "2023-12-11T11:17:52.000000Z"
+        },
+        {
+            "id": 2,
+            "name": "Orange",
+            "description": "It is Orange Color",
+            "created_at": "2023-12-12T03:58:59.000000Z",
+            "updated_at": "2023-12-12T03:58:59.000000Z"
+        },
+        {
+            "id": 3,
+            "name": "Orang",
+            "description": "It is Orange Color",
+            "created_at": "2023-12-12T04:57:50.000000Z",
+            "updated_at": "2023-12-12T04:57:50.000000Z"
+        },
+        {
+            "id": 5,
+            "name": "almon1702365527",
+            "description": "Green",
+            "created_at": "2023-12-12T07:18:47.000000Z",
+            "updated_at": "2023-12-12T07:18:47.000000Z"
+        },
+        {
+            "id": 6,
+            "name": "almon1702365575",
+            "description": "Green",
+            "created_at": "2023-12-12T07:19:35.000000Z",
+            "updated_at": "2023-12-12T07:19:35.000000Z"
+        },
+        {
+            "id": 7,
+            "name": "almon1702365707",
+            "description": "Green",
+            "created_at": "2023-12-12T07:21:47.000000Z",
+            "updated_at": "2023-12-12T07:21:47.000000Z"
+        }
+    ]
+}
 
 # Get:http://127.0.0.1:8000/api/category/1
 
@@ -104,8 +150,7 @@ It throws record based upon given id;
         "name": "orangnic",
         "description": "Black",
         "created_at": "2023-12-11T11:25:41.000000Z",
-        "updated_at": "2023-12-12T06:44:35.000000Z",
-       
+        "updated_at": "2023-12-12T06:44:35.000000Z",      
     }
 }
 
@@ -114,3 +159,4 @@ It throws record based upon given id;
     "message": "Category Deleted Successfully",
     "success": true
 }
+
