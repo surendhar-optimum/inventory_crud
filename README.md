@@ -132,11 +132,20 @@ It throws all the inserted value from db;
 # Get:http://127.0.0.1:8000/api/category/1
 
 It throws record based upon given id;
+{
+    "data": {
+        "id": 3,
+        "name": "Orang",
+        "description": "It is Orange Color",
+        "created_at": "2023-12-12T04:57:50.000000Z",
+        "updated_at": "2023-12-12T04:57:50.000000Z"
+    }
+}
 
-.Pass value category_id
+
 # PUT:http://127.0.0.1:8000/api/item/6
 
-.Pass value category_id
+.Pass with value category_id
 
  | Parameter | type    | Desc    |
 | :-----: | :---: | :---: |
@@ -157,6 +166,203 @@ It throws record based upon given id;
 # DELETE:http://127.0.0.1:8000/api/category/6
 {
     "message": "Category Deleted Successfully",
+    "success": true
+}
+
+# ITEM RESPONSE
+
+Response for Item Json 
+{
+    "name":"Item Test ",
+    "description":" Desc Item"
+    "created_at": "2023-12-12T08:40:06.000000Z",
+    "updated_at": "2023-12-12T08:40:06.000000Z"
+}
+
+# POST:http://127.0.0.1:8000/api/item/
+
+| Parameter | type    | Desc    |
+| :-----: | :---: | :---: |
+| name | string  | category for yours  |
+| description | string  | description for yours  |
+| price| integer  | price value for yours  |
+| quantity | integer  | quantity value for yours  |
+
+
+
+# Response for your Post item
+{
+    "message": "Item\n        Addded Successfully",
+    "Item": {
+        "name": "Sapta gola",
+        "description": "Green",
+        "price": "150",
+        "quantity": "1500",
+        "updated_at": "2023-12-12T08:40:06.000000Z",
+        "created_at": "2023-12-12T08:40:06.000000Z",
+        "id": 103
+    }
+}
+
+# Get:http://127.0.0.1:8000/api/item/
+
+It throws all the inserted value from db;
+{
+    "data": [
+        {
+            "id": 3,
+            "name": "Grapes",
+            "description": "Red in color",
+            "price": 290,
+            "quantity": 40,
+            "created_at": "2023-12-11T11:22:31.000000Z",
+            "updated_at": "2023-12-11T13:06:58.000000Z",
+            "category": [
+                {
+                    "id": 40,
+                    "category_id": 1,
+                    "item_id": 3,
+                    "created_at": "2023-12-11T11:22:31.000000Z",
+                    "updated_at": "2023-12-11T13:06:58.000000Z",
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Mangof",
+            "description": "Green",
+            "price": 150,
+            "quantity": 1500,
+            "created_at": "2023-12-11T11:23:36.000000Z",
+            "updated_at": "2023-12-11T11:23:36.000000Z",
+            "category": [
+                {
+                    "id": 3,
+                    "category_id": 1,
+                    "item_id": 4,
+                    "created_at": "2023-12-11T11:23:36.000000Z",
+                    "updated_at": "2023-12-11T11:23:36.000000Z",
+                    }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Mangossf",
+            "description": "Green",
+            "price": 150,
+            "quantity": 1500,
+            "created_at": "2023-12-11T11:23:36.000000Z",
+            "updated_at": "2023-12-11T11:23:36.000000Z",
+            "category": [
+                {
+                    "id": 4,
+                    "category_id": 1,
+                    "item_id": 5,
+                    "created_at": "2023-12-11T11:23:36.000000Z",
+                    "updated_at": "2023-12-11T11:23:36.000000Z"
+                    }
+            ]
+        },
+        {
+            "id": 6,
+            "name": "orangnic",
+            "description": "Black",
+            "price": 170,
+            "quantity": 700,
+            "created_at": "2023-12-11T11:25:41.000000Z",
+            "updated_at": "2023-12-12T06:44:35.000000Z",
+            "category": [
+                {
+                    "id": 128,
+                    "category_id": 2,
+                    "item_id": 6,
+                    "created_at": "2023-12-11T11:25:41.000000Z",
+                    "updated_at": "2023-12-12T06:44:35.000000Z"
+                    }
+            ]
+        },
+        {
+            "id": 60,
+            "name": "Sap",
+            "description": "Green",
+            "price": 150,
+            "quantity": 1500,
+            "created_at": "2023-12-12T04:58:03.000000Z",
+            "updated_at": "2023-12-12T04:58:03.000000Z",
+            "category": [
+                {
+                    "id": 64,
+                    "category_id": 1,
+                    "item_id": 60,
+                    "created_at": "2023-12-12T04:58:03.000000Z",
+                    "updated_at": "2023-12-12T04:58:03.000000Z"
+                }
+            ]
+        },
+        {
+            "id": 103,
+            "name": "Sapta gola",
+            "description": "Green",
+            "price": 150,
+            "quantity": 1500,
+            "created_at": "2023-12-12T08:40:06.000000Z",
+            "updated_at": "2023-12-12T08:40:06.000000Z",
+            "category": [
+                {
+                    "id": 261,
+                    "category_id": 1,
+                    "item_id": 103,
+                    "created_at": "2023-12-12T08:40:06.000000Z",
+                    "updated_at": "2023-12-12T08:40:06.000000Z"
+                }
+            ]
+        }
+    ],
+    "success": true
+}
+
+# Get:http://127.0.0.1:8000/api/category/1
+
+It throws record based upon given id;
+{
+    "data": {
+        "id": 3,
+        "name": "Orang",
+        "description": "It is Orange Color",
+        "created_at": "2023-12-12T04:57:50.000000Z",
+        "updated_at": "2023-12-12T04:57:50.000000Z"
+    }
+}
+
+
+# PUT:http://127.0.0.1:8000/api/item/3
+
+.Pass with value category_id
+
+ | Parameter | type    | Desc    |
+| :-----: | :---: | :---: |
+| name | string  | item for yours  |
+| description | string  | description for yours  |
+| price| integer  | item value for yours  |
+| quantity | integer  | quantity value for yours  |
+
+{
+    "message": "Item Updated Successfully",
+    "data": {
+        "id": 3,
+        "name": "orangnic",
+        "description": "Black",
+        "price": "170",
+        "quantity": "700",
+        "created_at": "2023-12-11T11:25:41.000000Z",
+        "updated_at": "2023-12-12T06:44:35.000000Z"
+    }
+}
+
+
+# DELETE:http://127.0.0.1:8000/api/category/6
+{
+    "message": "Item Deleted Successfully",
     "success": true
 }
 
