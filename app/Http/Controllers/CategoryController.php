@@ -50,7 +50,7 @@ class CategoryController extends Controller
         ]);
 
         return response()->json(['message'=>'Category
-        Addded Successfully','category'=>$category],200);
+        Addded Successfully','category'=>$category],201);
     }
 
     /**
@@ -59,9 +59,16 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(string $id)
+
     {
-        return response(['data'=>$category],200);
+        $category =Category::find($id);
+        if($category){
+            return response(['data'=>$category,'success'=>true],200);
+        }else{
+            return response(['data'=>$category,'success'=>false],404);
+        }
+
     }
 
     /**
@@ -82,11 +89,24 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    // public function update(Request $request, Category $category)
+    // {
+    //     $data=$request->only(['name','description']);
+    //     $category->update($data);
+
+    //     return response(['message'=>'Category Updated Successfully'],200);
+    // }
+    public function update($request, string $id)
     {
-        $data=$request->only(['name','description']);
-        $category->update($data);
-        return response(['message'=>'Category Updated Successfully'],200);
+        $category = Category::find($id);
+        if($category){
+            $category->name= $request->name;
+            $category->description=$request->description;
+            $category->save();
+            return response(['data'=>$category,'success'=>true]);
+        }else{
+            return response(['data'=>$category,'success'=>false,'message'=>'Category not found'],200);
+        }
     }
 
     /**
@@ -95,9 +115,20 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
-    {
-        $category->delete();
-        return response(['message'=>'Category Deleted Successfully'],200);
+    // public function destroy(Category $category)
+    // {
+    //     $category->delete();
+    //     return response(['message'=>'Category Deleted Successfully'],200);
+    // }
+
+    public function destory(string $id){
+        $category=Category::find($id);
+        if($category){
+            $category->delete();
+            return response(['message'=>'Category Deleted Successfully','success'=>true]);
+        }
+        else{
+            return response(['message'=>'Category Deleted Fail','success'=>false],400);
+        }
     }
 }

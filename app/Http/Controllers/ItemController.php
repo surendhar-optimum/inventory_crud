@@ -6,7 +6,9 @@ use App\Models\Category;
 use App\Models\ItemCategory;
 use Illuminate\Http\Request;
 use App\Mail\ItemMailCreated;
+use App\Mail\ItemMailDeleted;
 use Illuminate\Support\Facades\Mail;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class ItemController extends Controller
@@ -16,10 +18,10 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $item = Item::all();
-        return response(['data' => $item], 200);
+        $item = Item::with(['category.itemcat'])->get();
+        return response(['data' => $item,'success'=>true], 200);
     }
 
     /**
@@ -76,8 +78,9 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show(string $id)
     {
+        $item= Item::with(['category.itemcat'])->find($id);
         return response(['data' => $item], 200);
     }
 
@@ -92,10 +95,17 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
         // print_r($request->all(), $id);
         $item = Item::findOrFail($id);
+        if(!$item){
+
+            return response()->json(['data' => $item,
+            'success' => false,'message'=>'Item not found',
+            ]);
+
+        }
 
         $validatedData = $request->validate([
             'name' => 'required|string',
@@ -105,17 +115,31 @@ class ItemController extends Controller
 
         ]);
         $item->update($validatedData);
+
+        ItemCategory::where('item_id',$item->id)->delete();
         $itemcaty = [];
         $categories = $request->category_id;
         foreach ($categories as $category) {
             $itemcaty[] = [
                 'item_id' => $item->id,
                 'category_id' => $category,
+                'created_at'=> date('Y-m-d H:i:s'),
+                'updated_at'=> date('Y-m-d H:i:s'),
+
             ];
         }
         if (count($itemcaty)) {
             ItemCategory::where('item_id', $item->id)->delete();
             ItemCategory::insert($itemcaty);
+        }
+        $toEmail =env('INVENTORY_ADMIN_EMAIL');
+        $ccUsers =explode(',',env('INVENTORY_TEAM_MAILS'));
+        try{
+            $item->is_created=false;
+            Mail::to($toEmail)->cc($ccUsers)->send(new ItemMailCreated($item));
+            $message ='Item updated and Email sent successfully';
+        }catch (\Exception $e) {
+            $message = 'Item updated But mail not sent, error: '.$e->getMessage();
         }
         return response()->json(['message' => 'Item Updated Successfully', 'data' => $item], 200);
     }
@@ -125,9 +149,30 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Item $item)
+    public function destroy(string $id)
     {
+        $item = Item::find($id);
+        if($item){
+        $itemDetails =$item;
         $item->delete();
-        return response(['message' => 'Item Deleted Successfully'], 200);
+
+        $toEmail =env('INVENTORY_ADMIN_EMAIL');
+        $ccUsers =explode(',',env('INVENTORY_TEAM_MAILS'));
+        try{
+
+            Mail::to($toEmail)->cc($ccUsers)->send(new ItemMailDeleted($item));
+            $message ='Item deleted and Email sent successfully';
+        }catch (\Exception $e) {
+            $message = 'Item deleted But mail not sent, error: '.$e->getMessage();
+        }
+        return response()->json(['message' => 'Item Deleted Successfully', 'success'=>true]);
+    }else{
+        return response()->json(['message' => 'Item Deleted Failed', 'success'=>false],400);
+
+
+        }
+
+
+
     }
 }
