@@ -363,7 +363,7 @@ It throws record based upon given id;
 }
 
 
-# DELETE:http://127.0.0.1:8000/api/category/6
+# DELETE:http://127.0.0.1:8000/api/item/6
 {
     "message": "Item Deleted Successfully",
     "success": true
