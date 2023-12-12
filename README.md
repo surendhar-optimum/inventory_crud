@@ -25,7 +25,7 @@ Create Restful API for an inventory management system using Laravel and Mysql.
     
 # Terminal Activities
     . open folder select the file path into cmd to execute vs code.
-# Appliation 
+# Application 
     . To run the application
         .. Php artisan serve
     . Create Item Controller and Category Controller 
@@ -34,6 +34,8 @@ Create Restful API for an inventory management system using Laravel and Mysql.
     . Create Model for Item and Category using -m to migration the tables and it create tables as plurals of model
        .. Php artisan make:model Item -m
        .. Php artisan make:model Category -m
+    . Database Migrate
+       .. php artisan migrate
     . Use composer to create Mail 
     . create Unit testing 
        .. php artisan make:test Test
