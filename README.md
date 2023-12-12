@@ -171,14 +171,6 @@ It throws record based upon given id;
 
 # ITEM RESPONSE
 
-Response for Item Json 
-{
-    "name":"Item Test ",
-    "description":" Desc Item"
-    "created_at": "2023-12-12T08:40:06.000000Z",
-    "updated_at": "2023-12-12T08:40:06.000000Z"
-}
-
 # POST:http://127.0.0.1:8000/api/item/
 
 | Parameter | type    | Desc    |
@@ -187,7 +179,7 @@ Response for Item Json
 | description | string  | description for yours  |
 | price| integer  | price value for yours  |
 | quantity | integer  | quantity value for yours  |
-
+| category_id | integer  | pass minimum 1 valuable category_id |
 
 
 # Response for your Post item
@@ -321,16 +313,25 @@ It throws all the inserted value from db;
     "success": true
 }
 
-# Get:http://127.0.0.1:8000/api/category/1
+# Get:http://127.0.0.1:8000/api/item/3
 
 It throws record based upon given id;
 {
     "data": {
         "id": 3,
-        "name": "Orang",
-        "description": "It is Orange Color",
-        "created_at": "2023-12-12T04:57:50.000000Z",
-        "updated_at": "2023-12-12T04:57:50.000000Z"
+        "name": "Grapes",
+        "description": "Red in color",
+        "price": 290,
+        "quantity": 40,
+        "created_at": "2023-12-11T11:22:31.000000Z",
+        "updated_at": "2023-12-11T13:06:58.000000Z",
+        "category": [
+            {
+                "id": 40,
+                "category_id": 1,
+                "item_id": 3
+            }
+        ]
     }
 }
 
