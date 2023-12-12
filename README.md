@@ -1,13 +1,14 @@
-#Inventory Crud System
-Laravel Inventory Crud System Technical Challenge
-#Objective 
+# INVENTORY MANAGEMENT SYSTEM
+Laravel Inventory Management System Api Crud Technical Challenge
+
+## OBJECTIVE
 Create Restful API for an inventory management system using Laravel and Mysql.
 
-#Required Softwares
+# REQUIRED SOFTWARES
 PHP >=8.0
 Laravel 10
 
-#Features
+# FEATURES
 Item Management
 Category Management
 Email Notifications
