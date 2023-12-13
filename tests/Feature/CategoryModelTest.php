@@ -19,20 +19,20 @@ class CategoryModelTest extends TestCase
      */
 
      private $CATEGORY_HEADERS='xplore_inventory';
-    public function test_CategoryDetails()
+    public function test_unauthorizedCategoryDetails()
     {
 
         $response = $this->postJson('/api/category',[
-            'name'=>'Testing',
+            'name'=>'Testing.',
             'description'=>'testing descp']);
 
         $response->assertStatus(403);
     }
-    public function testCreatelist()
+    public function testCreateCategory()
     {
         $response=$this->withHeaders([
             'Authorization' => 'Bearer'. $this->CATEGORY_HEADERS,])->postJson('/api/category',[
-                'name' => 'almon' ,
+                'name' => 'almon'.time(),
             'description' => 'Green',
             ]);
 

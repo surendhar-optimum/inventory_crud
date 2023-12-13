@@ -36,8 +36,8 @@ class ItemController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|unique:items,name',
             'description' => 'required|string',
-            'price' => 'required|integer',
-            'quantity' => 'required|integer',
+            'price' => 'required|integer|gte:0',
+            'quantity' => 'required|integer|gte:0',
 
         ]);
 
@@ -54,6 +54,8 @@ class ItemController extends Controller
             $itemcaty[] = [
                 'item_id' => $item->id,
                 'category_id' => $category,
+                'created_at'=> date('Y-m-d H:i:s'),
+                'updated_at'=> date('Y-m-d H:i:s'),
             ];
         }
         if (count($itemcaty)) {
@@ -64,10 +66,11 @@ class ItemController extends Controller
         try{
             Mail::to($toEmail)->send(new ItemMailCreated($item));
             $message ='Item created and Email sent successfully';
+            unset($itemcaty);
         }catch (\Exception $e) {
             $message = 'Item created But mail not sent, error: '.$e->getMessage();
         }
-
+        unset($itemcaty);
         return response()->json(['message' => 'Item
         Addded Successfully', 'Item' => $item], 201);
     }
@@ -110,8 +113,8 @@ class ItemController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
-            'price' => 'required|integer',
-            'quantity' => 'required|integer',
+            'price' => 'required|integer|gte:0',
+            'quantity' => 'required|integer|gte:0',
 
         ]);
         $item->update($validatedData);

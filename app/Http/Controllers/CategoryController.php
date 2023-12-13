@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Item;
+
 class CategoryController extends Controller
 {
     /**
@@ -15,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $category = Category::all();
-        return response(['data'=>$category],200);
+        return response(['data' => $category], 200);
     }
 
     /**
@@ -37,20 +38,20 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
 
-        $validatedData=$request->validate([
-            'name'=>'required|string|unique:categories,name',
-            'description'=>'required|string',
+        $validatedData = $request->validate([
+            'name' => 'required|string|unique:categories,name',
+            'description' => 'required|string',
 
         ]);
 
-        $category=Category::create([
-            'name'=>$validatedData['name'],
-            'description'=>$validatedData['description'],
+        $category = Category::create([
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
 
         ]);
 
-        return response()->json(['message'=>'Category
-        Addded Successfully','category'=>$category],201);
+        return response()->json(['message' => 'Category
+        Addded Successfully', 'category' => $category], 201);
     }
 
     /**
@@ -62,13 +63,12 @@ class CategoryController extends Controller
     public function show(string $id)
 
     {
-        $category =Category::find($id);
-        if($category){
-            return response(['data'=>$category,'success'=>true],200);
-        }else{
-            return response(['data'=>$category,'success'=>false],404);
+        $category = Category::find($id);
+        if ($category) {
+            return response(['data' => $category, 'success' => true], 200);
+        } else {
+            return response(['data' => $category, 'success' => false], 404);
         }
-
     }
 
     /**
@@ -79,7 +79,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return response(['data'=>$category],200);
+        return response(['data' => $category], 200);
     }
 
     /**
@@ -99,13 +99,13 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $category = Category::find($id);
-        if($category){
-            $category->name= $request->name;
-            $category->description=$request->description;
+        if ($category) {
+            $category->name = $request->name;
+            $category->description = $request->description;
             $category->save();
-            return response(['data'=>$category,'success'=>true]);
-        }else{
-            return response(['data'=>$category,'success'=>false,'message'=>'Category not found'],200);
+            return response(['data' => $category, 'success' => true]);
+        } else {
+            return response(['data' => $category, 'success' => false, 'message' => 'Category not found'], 200);
         }
     }
 
@@ -121,16 +121,16 @@ class CategoryController extends Controller
     //     return response(['message'=>'Category Deleted Successfully'],200);
     // }
 
-    public function destory(string $id){
-        $category=Category::find($id);
+    public function destory(string $id)
+    {
+        $category = Category::find($id);
         //dd($category);
-        if($category){
+        if ($category) {
 
             $category->delete();
-            return response(['message'=>'Category Deleted Successfully','success'=>true]);
-        }
-        else{
-            return response(['message'=>'Category Deleted Fail','success'=>false],400);
+            return response(['message' => 'Category Deleted Successfully', 'success' => true]);
+        } else {
+            return response(['message' => 'Category Deleted Fail', 'success' => false], 400);
         }
     }
 }
