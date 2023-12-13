@@ -98,12 +98,12 @@ class ItemController extends Controller
     public function update(Request $request, string $id)
     {
         // print_r($request->all(), $id);
-        $item = Item::findOrFail($id);
+        $item = Item::find($id);
         if(!$item){
 
             return response()->json(['data' => $item,
             'success' => false,'message'=>'Item not found',
-            ]);
+            ],404);
 
         }
 

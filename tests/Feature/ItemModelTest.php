@@ -46,8 +46,8 @@ class ItemModelTest extends TestCase
     public function testUpdatePost()
     {
         $item = Item::orderBy('id','ASC')->first();
-        $categories = Category::pluck('id')->first();
-        $response = $this->withHeaders($this->ITEM_HEADERS)->put('/api/item'.$item->id,
+        $categories = Category::orderBy('id','ASC')->pluck('id')->first();
+        $response = $this->withHeaders($this->ITEM_HEADERS)->put('/api/item/'.$item->id,
         [
             'name' => 'lkjlkj;lkjlkj',
             'description' => 'Red in color',
@@ -56,7 +56,7 @@ class ItemModelTest extends TestCase
             'category_id' => [$categories]
         ]);
 
-        $response->assertStatus(404);
+        $response->assertStatus(200);
 
     }
     public function testUpdatePostNotFound(){
