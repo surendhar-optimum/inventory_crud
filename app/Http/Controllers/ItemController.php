@@ -67,11 +67,11 @@ class ItemController extends Controller
         try{
             Mail::to($toEmail)->send(new ItemMailCreated($item));
             $message ='Item created and Email sent successfully';
-            unset($item->$itemcaty);
+        //    unset($item->$itemcaty);
         }catch (\Exception $e) {
             $message = 'Item created But mail not sent, error: '.$e->getMessage();
         }
-        unset($item->$itemcaty);
+       // unset($item->$itemcaty);
         return response()->json(['message' => 'Item
         Addded Successfully', 'Item' => $item], 201);
     }
