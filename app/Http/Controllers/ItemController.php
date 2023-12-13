@@ -38,6 +38,7 @@ class ItemController extends Controller
             'description' => 'required|string',
             'price' => 'required|integer|gte:0',
             'quantity' => 'required|integer|gte:0',
+            'category_id'=>'required|array|min:1'
 
         ]);
 
@@ -66,11 +67,11 @@ class ItemController extends Controller
         try{
             Mail::to($toEmail)->send(new ItemMailCreated($item));
             $message ='Item created and Email sent successfully';
-            unset($itemcaty);
+            unset($item->$itemcaty);
         }catch (\Exception $e) {
             $message = 'Item created But mail not sent, error: '.$e->getMessage();
         }
-        unset($itemcaty);
+        unset($item->$itemcaty);
         return response()->json(['message' => 'Item
         Addded Successfully', 'Item' => $item], 201);
     }
@@ -83,7 +84,7 @@ class ItemController extends Controller
      */
     public function show(string $id)
     {
-        $item= Item::with(['category.itemcat'])->find($id);
+        $item= Item::with(['category'])->find($id);
         return response(['data' => $item], 200);
     }
 
