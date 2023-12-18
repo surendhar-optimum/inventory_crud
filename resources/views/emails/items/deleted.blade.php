@@ -1,15 +1,14 @@
 <x-mail::message>
-     # Item Created
-
+        # Item Deleted
 <div>
         Name: {{ $item->name }}<br>
         Description: {{ $item->description }}<br>
         Price: {{ $item->price }}<br>
         Quantity: {{ $item->quantity }}<br>
+
 </div>
-
-
-<br><br>
+<br>
+<br>
     Thanks...<br>
     {{ config('app.name') }}
 

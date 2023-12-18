@@ -72,8 +72,7 @@ class ItemController extends Controller
             $message = 'Item created But mail not sent, error: '.$e->getMessage();
         }
        // unset($item->$itemcaty);
-        return response()->json(['message' => 'Item
-        Addded Successfully', 'Item' => $item], 201);
+        return response()->json(['message' => $message, 'Item' => $item], 201);
     }
 
     /**
@@ -147,7 +146,7 @@ class ItemController extends Controller
             $message = 'Item updated But mail not sent, error: '.$e->getMessage();
         }
         unset($item->is_created);
-        return response()->json(['message' => 'Item Updated Successfully', 'data' => $item], 200);
+        return response()->json(['message' => $message, 'data' => $item], 200);
     }
     /**
      * Remove the specified resource from storage.
@@ -166,12 +165,12 @@ class ItemController extends Controller
         $ccUsers =explode(',',env('INVENTORY_TEAM_MAILS'));
         try{
 
-            Mail::to($toEmail)->cc($ccUsers)->send(new ItemMailDeleted($item));
+            Mail::to($toEmail)->cc($ccUsers)->send(new ItemMailDeleted($itemDetails));
             $message ='Item deleted and Email sent successfully';
         }catch (\Exception $e) {
             $message = 'Item deleted But mail not sent, error: '.$e->getMessage();
         }
-        return response()->json(['message' => 'Item Deleted Successfully', 'success'=>true]);
+        return response()->json(['message' => $message,'success'=>true]);
     }else{
         return response()->json(['message' => 'Item Deleted Failed', 'success'=>false],400);
 
